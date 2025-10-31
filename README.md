@@ -4,7 +4,7 @@
 
 This is a console-based calculator application capable of evaluating mathematical expressions with standard operators (`+`, `-`, `*`, `/`, `^`, parentheses) and dynamically loaded plugin functions.
 
-Plugins are implemented as DLLs (on Windows) or shared libraries (on Linux/macOS), which are automatically loaded at runtime from the `./plugins` directory. This allows extending the calculator with new functions **without recompiling the main application**.
+Plugins are implemented as DLLs, which are automatically loaded at runtime from the `./plugins` directory. This allows extending the calculator with new functions **without recompiling the main application**.
 
 **Example usage:**
 
@@ -49,7 +49,6 @@ cmake --build .
 3. Run the calculator:
 ```bash
 ./Calculator.exe # Windows
-./Calculator     # Linux/macOS
 ```
 
 ---
@@ -83,3 +82,4 @@ g++ -shared -o plugins/funcmyfunc.dll plugins_src/funcmyfunc.cpp
 Enter expression: myFunc(5)
 Output: 20
 ```
+
