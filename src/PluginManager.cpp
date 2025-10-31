@@ -2,8 +2,8 @@
 // Created by 79835
 //
 
-#include "PluginManager.h"
-#include "FunctionRegistry.h"
+#include "../include/PluginManager.h"
+#include "../include/FunctionRegistry.h"
 #include <filesystem>
 #include <iostream>
 #include <windows.h>
