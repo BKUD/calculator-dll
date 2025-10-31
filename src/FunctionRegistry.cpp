@@ -2,7 +2,7 @@
 // Created by 79835
 //
 
-#include "FunctionRegistry.h"
+#include "../include/FunctionRegistry.h"
 #include <stdexcept>
 
 FunctionRegistry& FunctionRegistry::getInstance() {
