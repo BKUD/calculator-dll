@@ -11,4 +11,6 @@ add_executable(Calculator src/main.cpp
         src/ExpressionParser.h
         src/Evaluator.h
         src/FunctionRegistry.cpp
-        src/PluginManager.cpp)
+        src/PluginManager.cpp
+        src/ExpressionParser.cpp
+        src/Evaluator.cpp)
