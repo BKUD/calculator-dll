@@ -6,23 +6,16 @@
 #include <string>
 
 #include "FunctionRegistry.h"
+#include "PluginManager.h"
 
 int main() {
     try {
+        PluginManager pluginManager("./plugins");
+        pluginManager.loadAllPlugins();
+
         auto& registry = FunctionRegistry::getInstance();
-
-
-        registry.registerFunction("add", [](std::vector<double> args) -> double {
-            if (args.size() != 2)
-                throw std::invalid_argument("add(x, y) requires exactly 2 arguments");
-            return args[0] + args[1];
-        });
-
-
-        auto addFunc = registry.getFunction("add");
-        std::cout << "add(5, 4) = " << addFunc({5, 4}) << std::endl;
-
-        registry.registerFunction("add", [](std::vector<double>){ return 0; });
+        auto sinFunc = registry.getFunction("sin");
+        std::cout << "sin(45) = " << sinFunc({90}) << std::endl;
     } catch (const std::exception& e) {
         std::cerr << "Error: " << e.what() << std::endl;
     }
