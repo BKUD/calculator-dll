@@ -5,17 +5,22 @@
 #include <iostream>
 #include <string>
 
+#include "Evaluator.h"
 #include "FunctionRegistry.h"
 #include "PluginManager.h"
 
 int main() {
     try {
-        PluginManager pluginManager("./plugins");
-        pluginManager.loadAllPlugins();
+        //PluginManager pluginManager("../plugins");
+        //pluginManager.loadAllPlugins();
 
-        auto& registry = FunctionRegistry::getInstance();
-        auto sinFunc = registry.getFunction("sin");
-        std::cout << "sin(45) = " << sinFunc({90}) << std::endl;
+        Evaluator evaluator;
+        std::string expr;
+        std::cout << "Enter expression: ";
+        std::getline(std::cin, expr);
+
+        double result = evaluator.evaluate(expr);
+        std::cout << "Result: " << result << std::endl;
     } catch (const std::exception& e) {
         std::cerr << "Error: " << e.what() << std::endl;
     }

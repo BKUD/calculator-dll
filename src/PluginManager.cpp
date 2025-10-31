@@ -35,7 +35,7 @@ void PluginManager::loadPlugin(const std::string &path) {
     HMODULE lib = LoadLibraryA(path.c_str());
     if (!lib) throw std::runtime_error("Failed to load library");
 
-    typedef double (*PluginFunc)(double *, int);
+    typedef double (*PluginFunc)(double*, int);
     auto func = (PluginFunc) GetProcAddress(lib, "plugin_function");
     if (!func) {
         FreeLibrary(lib);
@@ -53,7 +53,7 @@ void PluginManager::loadPlugin(const std::string &path) {
 
     FunctionRegistry::getInstance().registerFunction(funcName, [func](std::vector<double> args) -> double {
         try {
-            return func(args.data(), (int) args.size());
+            return func(args.data(), (int)args.size());
         } catch (const std::exception &e) {
             throw std::runtime_error("Error in plugin function: " + std::string(e.what()));
         }}
