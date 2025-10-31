@@ -11,8 +11,8 @@
 
 int main() {
     try {
-        //PluginManager pluginManager("../plugins");
-        //pluginManager.loadAllPlugins();
+        PluginManager pluginManager("../plugins");
+        pluginManager.loadAllPlugins();
 
         Evaluator evaluator;
         std::string expr;
