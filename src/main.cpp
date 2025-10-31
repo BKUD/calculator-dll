@@ -5,11 +5,27 @@
 #include <iostream>
 #include <string>
 
-int main() {
-    using namespace std;
+#include "FunctionRegistry.h"
 
-    string input;
-    cout << "Enter expression: ";
-    getline(cin, input);
-    cout << "You entered" << input << endl;
+int main() {
+    try {
+        auto& registry = FunctionRegistry::getInstance();
+
+
+        registry.registerFunction("add", [](std::vector<double> args) -> double {
+            if (args.size() != 2)
+                throw std::invalid_argument("add(x, y) requires exactly 2 arguments");
+            return args[0] + args[1];
+        });
+
+
+        auto addFunc = registry.getFunction("add");
+        std::cout << "add(5, 4) = " << addFunc({5, 4}) << std::endl;
+
+        registry.registerFunction("add", [](std::vector<double>){ return 0; });
+    } catch (const std::exception& e) {
+        std::cerr << "Error: " << e.what() << std::endl;
+    }
+
+    return 0;
 }
