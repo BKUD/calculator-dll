@@ -2,14 +2,14 @@
 // Created by 79835
 //
 
-#include "Evaluator.h"
+#include "../include/Evaluator.h"
 
 #include <cmath>
 #include <stack>
 #include <stdexcept>
 
-#include "ExpressionParser.h"
-#include "FunctionRegistry.h"
+#include "../include/ExpressionParser.h"
+#include "../include/FunctionRegistry.h"
 
 
 
