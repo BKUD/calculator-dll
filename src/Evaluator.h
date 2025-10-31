@@ -13,6 +13,5 @@
 
 class Evaluator {
 public:
-    explicit Evaluator() = default;
-    double evaluate(const std::string& expression);
+    double evaluate(const std::string& expr);
 };

@@ -11,50 +11,55 @@
 #include "ExpressionParser.h"
 #include "FunctionRegistry.h"
 
-double applyOp(const std::string& op, double a, double b) {
-    if(op == "+") return a + b;
-    if(op == "-") return a - b;
-    if(op == "*") return a * b;
-    if(op == "/") {
-        if(b == 0) throw std::runtime_error("Division by zero");
-        return a / b;
-    }
-    if(op == "^") return std::pow(a, b);
-    throw std::runtime_error("Invalid operator: " + op);
+
+
+static bool isOperator(const std::string& token) {
+    return token=="+"||token=="-"||token=="*"||token=="/";
 }
 
-double Evaluator::evaluate(const std::string& expression) {
+double applyOperator(double a, double b, const std::string& op) {
+    if(op=="+") return a+b;
+    if(op=="-") return a-b;
+    if(op=="*") return a*b;
+    if(op=="/") {
+        if(b==0) throw std::runtime_error("Division by zero");
+        return a/b;
+    }
+    throw std::runtime_error("Unknown operator: "+op);
+}
+
+double Evaluator::evaluate(const std::string& expr) {
     ExpressionParser parser;
-    std::vector<std::string> tokens = parser.parse(expression);
-    std::stack<double> stack;
+    auto tokens = parser.parse(expr);
+    std::stack<double> st;
 
-    for (auto& token : tokens) {
-        if (token.empty()) continue;
-
-        if (std::isdigit(token[0]) || (token[0]=='.' && token.size() > 1) || (token[0]=='-' && token.size()>1 && std::isdigit(token[1]))) {
-            stack.push(std::stod(token));
+    for(const auto& token: tokens) {
+        if(std::isdigit(token[0]) || (token.size()>1 && std::isdigit(token[1]))) {
+            st.push(std::stod(token));
         }
-
-        else if (token=="+"||token=="-"||token=="*"||token=="/"||token=="^") {
-            if (stack.size() < 2 ) throw std::runtime_error("Not enough operands for operator");
-            double b = stack.top(); stack.pop();
-            double a = stack.top(); stack.pop();
-            stack.push(applyOp(token, a, b));
+        else if(isOperator(token)) {
+            if(st.size()<2) throw std::runtime_error("Not enough operands");
+            double b=st.top(); st.pop();
+            double a=st.top(); st.pop();
+            st.push(applyOperator(a,b,token));
         }
+        else if(FunctionRegistry::getInstance().hasFunction(token)) {
+            int argc = FunctionRegistry::getInstance().getArgCount(token);
+            if(st.size()<argc) throw std::runtime_error("Not enough arguments for function "+token);
 
-        else {
+            std::vector<double> args(argc);
+            for(int i=argc-1;i>=0;--i){ args[i]=st.top(); st.pop(); }
+
             try {
-                auto func = FunctionRegistry::getInstance().getFunction(token);
-                if(stack.empty()) throw std::runtime_error("No argument for function: " + token);
-                double arg = stack.top(); stack.pop();
-                stack.push(func({arg}));
+                double res = FunctionRegistry::getInstance().getFunction(token)(args);
+                st.push(res);
             } catch(const std::exception& e) {
-                throw std::runtime_error("Function error [" + token + "]: " + e.what());
+                throw std::runtime_error(std::string("Error in plugin function: ") + e.what());
             }
         }
-
+        else throw std::runtime_error("Unknown token: "+token);
     }
 
-    if (stack.size() != 1) throw std::runtime_error("Invalid expression");
-    return stack.top();
+    if(st.size()!=1) throw std::runtime_error("Invalid expression");
+    return st.top();
 }
