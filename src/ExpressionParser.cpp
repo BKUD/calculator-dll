@@ -2,14 +2,14 @@
 // Created by 79835
 //
 
-#include "ExpressionParser.h"
+#include "../include/ExpressionParser.h"
 #include <stack>
 #include <sstream>
 #include <stdexcept>
 #include <cctype>
 #include <cmath>
 
-#include "FunctionRegistry.h"
+#include "../include/FunctionRegistry.h"
 
 int precedence(const std::string& op) {
     if(op == "+" || op == "-") return 1;
