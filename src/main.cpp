@@ -5,9 +5,9 @@
 #include <iostream>
 #include <string>
 
-#include "Evaluator.h"
-#include "FunctionRegistry.h"
-#include "PluginManager.h"
+#include "../include/Evaluator.h"
+#include "../include/FunctionRegistry.h"
+#include "../include/PluginManager.h"
 
 int main() {
     try {

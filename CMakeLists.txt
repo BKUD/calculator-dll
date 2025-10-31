@@ -6,10 +6,10 @@ set(CMAKE_CXX_STANDARD 20)
 add_executable(Calculator src/main.cpp
         src/main.cpp
         src/main.cpp
-        src/PluginManager.h
-        src/FunctionRegistry.h
-        src/ExpressionParser.h
-        src/Evaluator.h
+        include/PluginManager.h
+        include/FunctionRegistry.h
+        include/ExpressionParser.h
+        include/Evaluator.h
         src/FunctionRegistry.cpp
         src/PluginManager.cpp
         src/ExpressionParser.cpp
@@ -29,7 +29,11 @@ set_target_properties(funcdeg PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${PLUGIN_OUTPU
 add_library(funcln SHARED plugins_src/funcln.cpp)
 set_target_properties(funcln PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${PLUGIN_OUTPUT_DIR})
 
-add_library(funccos SHARED plugins_src/funccos.cpp
-        plugins_src/funcpow.cpp
-        plugins_src/funcsqrt.cpp)
+add_library(funcsqrt SHARED plugins_src/funcsqrt.cpp)
+set_target_properties(funcsqrt PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${PLUGIN_OUTPUT_DIR})
+
+add_library(funccos SHARED plugins_src/funccos.cpp)
 set_target_properties(funccos PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${PLUGIN_OUTPUT_DIR})
+
+add_library(funcpow SHARED plugins_src/funcpow.cpp)
+set_target_properties(funcpow PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${PLUGIN_OUTPUT_DIR})
