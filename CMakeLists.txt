@@ -3,4 +3,6 @@ project(Calculator)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(Calculator src/main.cpp)
+add_executable(Calculator src/main.cpp
+        src/main.cpp
+        src/main.cpp)
