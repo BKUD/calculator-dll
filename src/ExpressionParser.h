@@ -16,3 +16,4 @@ public:
     explicit ExpressionParser() = default;
     std::vector<std::string> parse(const std::string& expression);
 };
+
