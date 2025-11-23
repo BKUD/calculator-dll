@@ -18,7 +18,14 @@ public:
     explicit PluginManager(const std::string& directory);
     ~PluginManager();
 
+    PluginManager(const PluginManager&) = delete;
+    PluginManager& operator=(const PluginManager&) = delete;
+
+    PluginManager(PluginManager&&) noexcept = default;
+    PluginManager& operator=(PluginManager&&) noexcept = default;
+
     void loadAllPlugins();
+
 
 private:
     struct LoadedLib {

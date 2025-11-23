@@ -29,30 +29,6 @@ Output: 18
 - Extensible architecture: add new functions by creating a plugin DLL
 
 ---
-
-## How to Build
-
-1. Clone the repository:
-
-```bash
-git clone <repository-url>
-cd Calculator
-```
-2. Create a build directory and run CMake:
-
-```bash
-mkdir build
-cd build
-cmake ..
-cmake --build .
-```
-3. Run the calculator:
-```bash
-./Calculator.exe # Windows
-```
-
----
-
 ## Adding new plugins
 
 1. Create a new plugin source file (e.g., funcmyfunc.cpp) in the plugins/ folder:

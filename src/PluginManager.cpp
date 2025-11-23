@@ -168,5 +168,8 @@ void PluginManager::unloadAll() {
         if (L.handle) dlclose(L.handle);
 #endif
     }
+
+    FunctionRegistry::getInstance().clearAllFunctions();
+
     libs.clear();
 }
