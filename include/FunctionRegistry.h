@@ -19,6 +19,10 @@ public:
     PluginFunc getFunction(const std::string& name) const;
     int getArgCount(const std::string& name) const;
 
+    void clearAllFunctions() {
+        functions.clear();
+    };
+
 private:
     FunctionRegistry() = default;
 
